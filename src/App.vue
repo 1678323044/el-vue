@@ -1,38 +1,26 @@
 <template>
   <div id="app">
-    <el-input v-model="username" placeholder="请输入内容"></el-input>
-    <el-input v-model="password" placeholder="请输入内容"></el-input>
-    <el-button type="primary" v-on:click="handleLogin">主要按钮</el-button>
+    <head-menu v-show="$route.meta.showComponent"></head-menu>
+    <el-container>
+      <side-menu v-show="$route.meta.showComponent"></side-menu>
+      <router-view></router-view>
+    </el-container>
   </div>
 </template>
 
 <script>
-  import qs from 'qs'
-  import axios from 'axios'
+  import headMenu from './components/headMenu/headMenu'
+  import sideMenu from './components/sideMenu/sideMenu'
   export default {
-    data(){
-      return{
-        username: '',
-        password: ''
-      }
-    },
-    methods: {
-      handleLogin(){
-        let userInfo = {user: this.username,pass: this.password}
-        axios.post('/api/ac/login',qs.stringify(userInfo)).then(res =>{
-          let result = res.data
-          if (result.errcode == 0){
-            alert("登录成功")
-          }
-        })
-      }
+    components: {
+      headMenu,
+      sideMenu
     }
   }
 </script>
 
 <style>
-  #app{
-    width: 30%;
-    margin: 40px auto 0;
+  .el-container{
+    height: 100%;
   }
 </style>
