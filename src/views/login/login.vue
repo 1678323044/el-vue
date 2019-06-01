@@ -28,9 +28,6 @@
 </template>
 
 <script>
-  //import {reqLogin} from '../../api/index'
-  import qs from "qs"
-  import axios from "axios"
   export default {
     data(){
       return{
@@ -40,16 +37,12 @@
     },
     methods: {
       handleLogin(){
-        let userInfo = {user: this.username,pass: this.password}
-        let qsData = qs.stringify(userInfo)
-        axios.post('https://www.smartu365.com/ac/login',qsData).then(res => {
-          let result = res.data
-          if (result.errcode == 0){
-            this.$router.replace('/log')
-          }else {
-            alert("用户名或密码错误")
-          }
-        })
+        if (!this.username || !this.password){
+          alert("用户名或密码不能为空")
+          return
+        }
+        let data = {user: this.username,pass: this.password}
+        this.$store.dispatch('handleLogin',data)
       }
     }
   }

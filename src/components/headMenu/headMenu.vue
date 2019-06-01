@@ -3,7 +3,7 @@
     <h1>智能轮胎管理系统</h1>
     <ul class="quit" @click="showMenu">
       <li>
-        <a href="javascript:">韩泰轮胎<i class="el-icon-caret-bottom"></i></a>
+        <a href="javascript:"><i class="el-icon-caret-bottom">{{username}}</i></a>
         <ul v-if="status">
           <li><router-link to="javascript:">个人中心</router-link></li>
           <li><router-link to="/login">退出登录</router-link></li>
@@ -14,11 +14,15 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   export default {
     data(){
         return{
           status: false
         }
+    },
+    computed: {
+      ...mapState(['username'])
     },
     methods: {
       showMenu(){

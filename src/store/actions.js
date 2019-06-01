@@ -1,11 +1,16 @@
 /* 间接更新state属性 */
-/*
+
 import {RECEIVE_LOGIN} from './mutations-types'
+import {reqLogin} from  '../api/index'
 
 export default {
-  //发起异步消息
-  async getLogin({commit}){
-    let result = await reqLogin(userInfo)
+  //同步记录用户信息
+  async handleLogin({commit},data){
+    let result = await reqLogin(data)
+    if (result.errcode === 0){
+
+      commit(RECEIVE_LOGIN,{result})
+    }
   }
 }
-*/
+

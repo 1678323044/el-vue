@@ -56,12 +56,19 @@
   import '../../common/css/comm.css'
   import {reqRawdata} from '../../api/index'
   export default {
-    created(){
+    async created(){
       let data = {pageIndex: this.currentPage}
-      let result = reqRawdata(data)
-      this.totalCount = result.errcode
+      let result = await reqRawdata(data)
+      this.showData(result)
     },
     methods: {
+      showData(result){
+        if (result.errcode === 0){
+          this.tableData = result.rawdatas
+          this.totalCount = result.count
+        }
+        console.log(result.msg)
+      },
       handlePaging(val){
         this.currentPage = val
         let pageIndex = {pageIndex: this.currentPage}

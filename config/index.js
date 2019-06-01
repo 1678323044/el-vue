@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'https://www.smartu365.com',//目标接口域名
+        target: 'http://127.0.0.1:8000',//目标接口域名
         changeOrigin: true,//是否跨域
         pathRewrite: {
           '^/api': '' //重写接口,后面可以使重写的新路径，一般不做更改

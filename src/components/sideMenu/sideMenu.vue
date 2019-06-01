@@ -14,7 +14,7 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="1-1" @click="goto('/library')" :class="{'is-current':'/library' ===$route.path}">设备入库</el-menu-item>
-            <el-menu-item index="1-1" @click="goto('/log')" :class="{'is-current':'/log'===$route.path}">设备日志</el-menu-item>
+            <el-menu-item index="1-1" @click="goto('/rawdata')" :class="{'is-current':'/rawdata'===$route.path}">设备日志</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>

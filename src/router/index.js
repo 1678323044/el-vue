@@ -3,7 +3,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 import login from '../views/login/login'
-import log from '../views/log/log'
+import rawdata from '../views/rawdata/rawdata'
 import library from '../views/library/library'
 
 export default new Router({
@@ -13,8 +13,8 @@ export default new Router({
       component: login
     },
     {
-      path: '/log',
-      component: log,
+      path: '/rawdata',
+      component: rawdata,
       meta: {
         showComponent: true
       }
