@@ -54,29 +54,23 @@
 
 <script>
   import '../../common/css/comm.css'
-  import {reqRawdata} from '../../api/index'
   export default {
-    async created(){
+    created(){
       let data = {pageIndex: this.currentPage}
-      let result = await reqRawdata(data)
-      this.showData(result)
+      this.showData(data)
     },
     methods: {
-      showData(result){
-        if (result.errcode === 0){
-          this.tableData = result.rawdatas
-          this.totalCount = result.count
-        }
-        console.log(result.msg)
+      showData(data){
+        this.$store.dispatch('getRawdata',data)
       },
       handlePaging(val){
         this.currentPage = val
         let pageIndex = {pageIndex: this.currentPage}
-        reqRawdata(pageIndex)
+        this.showData(pageIndex)
       },
       handleQuery(){
         let query = {imei: this.imei,dt: this.value}
-        reqRawdata(query)
+        this.showData(query)
       }
     },
     data() {

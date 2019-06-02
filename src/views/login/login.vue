@@ -28,6 +28,7 @@
 </template>
 
 <script>
+  import {reqLogin} from '../../api/index'
   export default {
     data(){
       return{
@@ -36,13 +37,25 @@
       }
     },
     methods: {
-      handleLogin(){
+      async handleLogin(){
+        //表单验证
         if (!this.username || !this.password){
           alert("用户名或密码不能为空")
           return
         }
-        let data = {user: this.username,pass: this.password}
-        this.$store.dispatch('handleLogin',data)
+        //发送ajax请求
+        const userInfo = {user: this.username,pass: this.password}
+        const result = await reqLogin(userInfo)
+        if (result.errcode === 0){
+          //将用户名和用户令牌保存到全局变量
+          this.globalToken.setUseridToken(result.userid)
+          this.globalToken.setAccessToken(result.accesstoken)
+
+          this.$store.dispatch('recordLogin',result)
+          this.$router.replace('/rawdata')
+        }else {
+          alert(result.msg)
+        }
       }
     }
   }

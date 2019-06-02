@@ -3,7 +3,7 @@
     <h1>智能轮胎管理系统</h1>
     <ul class="quit" @click="showMenu">
       <li>
-        <a href="javascript:"><i class="el-icon-caret-bottom">{{username}}</i></a>
+        <a href="javascript:"><i class="el-icon-caret-bottom">{{userInfo.username}}</i></a>
         <ul v-if="status">
           <li><router-link to="javascript:">个人中心</router-link></li>
           <li><router-link to="/login">退出登录</router-link></li>
@@ -15,18 +15,29 @@
 
 <script>
   import {mapState} from 'vuex'
+  import storageUtil from '../../util/storageUtil'
   export default {
     data(){
         return{
-          status: false
+          status: false,
         }
     },
     computed: {
-      ...mapState(['username'])
+      ...mapState(['userInfo'])
+    },
+    created(){
+      const result = storageUtil.readStorage()
+      this.$store.dispatch('readUser',result)
     },
     methods: {
       showMenu(){
         this.status = !this.status
+      }
+    },
+    watch: {
+      userInfo: {
+        deep: true,  //深度监视,将最新的值保存到localStorage
+        handler: storageUtil.saveStorage
       }
     }
   }

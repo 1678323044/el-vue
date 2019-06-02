@@ -4,10 +4,12 @@
 
 import ajax from "./ajax"
 
+
 const BASE_URL = '/api'
 const SMART_URL = 'https://www.smartu365.com'
+
 //登录模块
-export const reqLogin = (data) => ajax(`${SMART_URL}/ac/login`,data)
+export const reqLogin = (userInfo) => ajax(`${SMART_URL}/ac/login`,userInfo)
 
 //原始数据模块
 export const reqRawdata = (data) => ajax(`${BASE_URL}/rawdatas`,data)
