@@ -2,6 +2,7 @@
 
 import axios from 'axios'
 import qs from 'qs'
+import storageUtil from '../util/storageUtil'
 
 export default function ajax(url,data={},type='POST') {
   return new Promise(function (resolve,reject) {
@@ -10,7 +11,8 @@ export default function ajax(url,data={},type='POST') {
       if (url.substr(-5) === 'login'){
         promise = axios.post(url,qs.stringify(data))
       }else{
-        const param  = '?userid='+'xxx'+'&accesstoken='+'xxx'
+        const result = storageUtil.readStorage()
+        const param  = '?userid='+result.userid+'&accesstoken='+result.accesstoken
         const urlParam = url + param
         promise = axios.post(urlParam,qs.stringify(data))
       }
