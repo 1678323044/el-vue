@@ -4,7 +4,9 @@ Vue.use(Router)
 
 import login from '../views/login/login'
 import rawdata from '../views/rawdata/rawdata'
-import library from '../views/library/library'
+import receivers from '../views/receivers/receivers'
+import companies from '../views/companies/companies'
+import addCompany from '../views/addCompany/addCompany'
 
 export default new Router({
   routes: [
@@ -20,10 +22,24 @@ export default new Router({
       }
     },
     {
-      path: '/library',
-      component: library,
+      path: '/receivers',
+      component: receivers,
       meta: {
         showComponent:true
+      }
+    },
+    {
+      path: '/companies',
+      component: companies,
+      meta: {
+        showComponent: true
+      }
+    },
+    {
+      path: '/addCompany',
+      component: addCompany,
+      meta: {
+        showComponent: true
       }
     },
     {

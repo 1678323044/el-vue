@@ -2,12 +2,13 @@
 
 import {
   RECEIVE_LOGIN,
-  RECEIVE_RAWDATA
+  RECEIVE_RAWDATA,
+  RECEIVE_COMPANIES
 } from './mutations-types'
 import {
-  reqRawdata
+  reqRawdata,
+  reqCompanies
 } from  '../api/index'
-
 
 export default {
   //同步记录用户信息
@@ -25,6 +26,14 @@ export default {
     let result = await reqRawdata(data)
     if (result.errcode === 0){
       commit(RECEIVE_RAWDATA,{result})
+    }
+  },
+
+  //异步获取公司信息
+  async getCompanies({commit}){
+    let result = await reqCompanies()
+    if (result.errcode === 0) {
+      commit(RECEIVE_COMPANIES,{result})
     }
   }
 }

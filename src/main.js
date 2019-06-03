@@ -11,9 +11,6 @@ import router from './router/index'
 import store from './store/index'
 import qs from 'qs'
 
-import globalToken from './common/js/globalToken'
-Vue.prototype.globalToken = globalToken
-
 new Vue({
   el: '#app',
   render: h => h(App),

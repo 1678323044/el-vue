@@ -55,7 +55,7 @@
   .el-header h1{
     font-size: 22px;
     font-weight: normal;
-    width: 200px;
+    width: 220px;
     float: left;
   }
   .el-header .quit{

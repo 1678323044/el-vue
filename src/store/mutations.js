@@ -1,7 +1,8 @@
 /* 直接更新state对象 */
 import {
   RECEIVE_LOGIN,
-  RECEIVE_RAWDATA
+  RECEIVE_RAWDATA,
+  RECEIVE_COMPANIES
 } from './mutations-types'
 
 export default {
@@ -12,5 +13,9 @@ export default {
   //更新原始数据
   [RECEIVE_RAWDATA](state,{result}){
     state.rawdataInfo = result
+  },
+  //更新公司列表数据
+  [RECEIVE_COMPANIES](state,{result}){
+    state.companiesInfo = result
   }
 }

@@ -18,8 +18,10 @@
           <el-input
             v-model="password"
             placeholder="请输入密码"
-            prefix-icon="el-icon-unlock">
+            prefix-icon="el-icon-unlock"
+            @keyup.enter.native="handleLogin">
           </el-input>
+          <el-checkbox v-model="checked">记住密码</el-checkbox>
           <el-button type="primary" @click="handleLogin">登录</el-button>
         </div>
       </div>
@@ -33,28 +35,34 @@
     data(){
       return{
         username: '',
-        password: ''
+        password: '',
+        checked: true
       }
     },
     methods: {
       async handleLogin(){
         //表单验证
         if (!this.username || !this.password){
-          alert("用户名或密码不能为空")
+          alert("请输入用户名或密码")
           return
         }
         //发送ajax请求
         const userInfo = {user: this.username,pass: this.password}
         const result = await reqLogin(userInfo)
-        if (result.errcode === 0){
-          //将用户名和用户令牌保存到全局变量
-          this.globalToken.setUseridToken(result.userid)
-          this.globalToken.setAccessToken(result.accesstoken)
+        if (result.errcode !== 0){
+          alert(result.msg)
+        }else if (result.usertype !== 100) {
+          alert("您的账号没有该权限")
+        }else{
+          //如果勾选'记住密码',将用户名和密码保存到localStorage
+          if (this.checked){
+
+          }
+
+          //将用户名和访问令牌保存到全局变量
 
           this.$store.dispatch('recordLogin',result)
-          this.$router.replace('/rawdata')
-        }else {
-          alert(result.msg)
+          this.$router.replace('/companies')
         }
       }
     }
@@ -100,7 +108,7 @@
   }
   .login-page .login-box .login-left img{
     width: 200px;
-    margin: 80px 0 0 0;
+    margin: 80px 0 15px 0;
   }
   .login-page .login-box .login-right{
     width: 40%;
@@ -120,5 +128,8 @@
   }
   .login-page .login-box .login-right .login-form button{
     width: 100%;
+  }
+  .el-button{
+    margin: 5px 0;
   }
 </style>
