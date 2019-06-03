@@ -103,19 +103,5 @@
 </script>
 
 <style>
-  .main-table{
-    width: 100%;
-    height: 800px;
-    margin: 10px 0;
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: #ffffff;
-  }
-  .main-table .el-table{
-    margin: 0 0 40px 0;
-  }
-  .el-table td{
-    padding: 8px 0;
-  }
 </style>
 

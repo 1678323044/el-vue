@@ -11,12 +11,12 @@ import {
 } from  '../api/index'
 
 export default {
-  //同步记录用户信息
+  //记录用户信息
   recordLogin({commit},result){
     commit(RECEIVE_LOGIN,{result})
   },
 
-  //异步读取用户信息
+  //读取用户信息
   readUser({commit},result){
     commit(RECEIVE_LOGIN,{result})
   },

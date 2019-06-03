@@ -6,26 +6,26 @@
     </div>
     <div class="main-table">
       <el-table
-        :data="tableData"
+        :data="comp"
         style="width: 100%">
         <el-table-column
-          prop=""
+          prop="cid"
           label="序号">
         </el-table-column>
         <el-table-column
-          prop=""
+          prop="name"
           label="公司名称">
         </el-table-column>
         <el-table-column
-          prop=""
+          prop="manager"
           label="管理人">
         </el-table-column>
         <el-table-column
-          prop=""
+          prop="phone"
           label="手机号">
         </el-table-column>
         <el-table-column
-          prop=""
+          prop="email"
           label="邮箱">
         </el-table-column>
       </el-table>
@@ -39,14 +39,21 @@
     data(){
       return{
         tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          cid: 1,
+          name: '',
+          manager: '',
+          phone: '',
+          email: ''
         }]
       }
     },
     created() {
       this.$store.dispatch('getCompanies')
+    },
+    computed: {
+      comp(){
+        return this.$store.state.companiesInfo.companies
+      }
     }
   }
 </script>
