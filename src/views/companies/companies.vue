@@ -6,7 +6,7 @@
     </div>
     <div class="main-table">
       <el-table
-        :data="comp"
+        :data="showCompanies"
         style="width: 100%">
         <el-table-column
           prop="cid"
@@ -28,16 +28,32 @@
           prop="email"
           label="邮箱">
         </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              @click="handleEdit(scope.row)">编辑</el-button>
+            <el-button
+              size="mini"
+              type="danger"
+              @click="">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
+    <edit-page v-show="toggle" v-bind:currCompany="currCompany"/>
   </el-main>
 </template>
 
 <script>
   import '../../common/css/comm.css'
+  import editPage from '../../components/editPage/editPage'
+  import PubSub from 'pubsub-js'
   export default {
     data(){
       return{
+        currCompany: {},  //点击编辑,当前公司的数据
+        toggle: false,
         tableData: [{
           cid: 1,
           name: '',
@@ -51,8 +67,22 @@
       this.$store.dispatch('getCompanies')
     },
     computed: {
-      comp(){
+      showCompanies(){
         return this.$store.state.companiesInfo.companies
+      }
+    },
+    components: {
+      editPage
+    },
+    mounted() {
+      PubSub.subscribe('cancel', msg => {
+        this.toggle = false
+      })
+    },
+    methods: {
+      handleEdit(row){
+        this.toggle = true
+        this.currCompany = row
       }
     }
   }

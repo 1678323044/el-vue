@@ -11,6 +11,8 @@ import router from './router/index'
 import store from './store/index'
 import qs from 'qs'
 
+
+
 new Vue({
   el: '#app',
   render: h => h(App),

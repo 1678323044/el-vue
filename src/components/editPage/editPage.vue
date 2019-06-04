@@ -1,6 +1,7 @@
 <template>
-  <el-main>
-    <div class="main-form">
+  <div>
+    <div class="bg"></div>
+    <div class="popup">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="公司名称" prop="name">
           <el-input v-model="ruleForm.name"></el-input>
@@ -15,16 +16,21 @@
           <el-input v-model="ruleForm.email"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="addCompany">立即添加</el-button>
+          <el-button type="primary" @click="editCompanies">确定</el-button>
+          <el-button type="primary" @click="leave">取消</el-button>
         </el-form-item>
       </el-form>
     </div>
-  </el-main>
+  </div>
 </template>
 
 <script>
-  import {reqAddCompany} from '../../api/index'
+  import PubSub from 'pubsub-js'
+  import {reqEditCompany} from '../../api/index'
   export default {
+    props: {
+      currCompany: Object
+    },
     data(){
       return{
         ruleForm: {
@@ -49,38 +55,62 @@
         }
       }
     },
+    created(){
+      this.ruleForm = this.currCompany
+      console.log(this.ruleForm)
+    },
     methods: {
-      async addCompany(){
-        const data = {name: this.ruleForm.name,manager: this.ruleForm.manager,
+      leave(){
+        PubSub.publish('cancel')
+      },
+      async editCompanies(){
+        const data = {cid: this.currCompany.cid,name: this.ruleForm.name,manager: this.ruleForm.manager,
           phone: this.ruleForm.phone,email: this.ruleForm.email}
-        const result = await reqAddCompany(data)
-        if (result.errcode === 0){
-          this.ruleForm.name = ''
-          this.ruleForm.manager = ''
-          this.ruleForm.phone = ''
-          this.ruleForm.email = ''
-          alert("添加成功")
-        } else {
-          alert("添加失败")
+          console.log(data)
+        const result = await reqEditCompany(data)
+        if (result.errcode === 0) {
+          location.reload()
+        }else {
+          alert("编辑失败")
         }
       }
     }
   }
 </script>
 
-<style>
-  .main-form{
+<style scoped>
+  .bg{
     width: 100%;
-    height: 800px;
+    height: 100%;
+    background-color: #333333;
+    opacity: 0.6;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+  }
+  .popup{
+    width: 900px;
+    height: 600px;
     background-color: #ffffff;
-    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    margin: 0 0 0 -450px;
+    z-index: 99999;
+    padding: 50px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
   }
   .el-form{
-    width: 600px;
-    margin: 120px auto 0;
+    margin: 50px 0 0 0;
   }
-  .el-form .el-form-item{
-    margin: 0 0 40px 0;
+  .el-form .el-form-item div{
+    width: 500px;
+    margin-left: 50px!important;
+  }
+  .el-form .el-form-item label{
+    font-size: 16px!important;
   }
 </style>
-
