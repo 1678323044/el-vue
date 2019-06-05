@@ -14,7 +14,7 @@
     </div>
     <div class="main-table">
       <el-table
-        :data="tableData"
+        :data="showRawdata"
         style="width: 100%">
         <el-table-column
           prop="imei"
@@ -55,24 +55,6 @@
 <script>
   import '../../common/css/comm.css'
   export default {
-    created(){
-      let data = {pageIndex: this.currentPage}
-      this.showData(data)
-    },
-    methods: {
-      showData(data){
-        this.$store.dispatch('getRawdata',data)
-      },
-      handlePaging(val){
-        this.currentPage = val
-        let pageIndex = {pageIndex: this.currentPage}
-        this.showData(pageIndex)
-      },
-      handleQuery(){
-        let query = {imei: this.imei,dt: this.value}
-        this.showData(query)
-      }
-    },
     data() {
       return {
         //当前页
@@ -97,6 +79,29 @@
             label: '0900'
           }
         ],
+      }
+    },
+    computed: {
+      showRawdata(){
+        return this.$store.state.rawdataInfo.rawdatas
+      }
+    },
+    created(){
+      let data = {pageIndex: this.currentPage}
+      this.showData(data)
+    },
+    methods: {
+      showData(data){
+        this.$store.dispatch('getRawdata',data)
+      },
+      handlePaging(val){
+        this.currentPage = val
+        let pageIndex = {pageIndex: this.currentPage}
+        this.showData(pageIndex)
+      },
+      handleQuery(){
+        let query = {imei: this.imei,dt: this.value}
+        this.showData(query)
       }
     }
   }

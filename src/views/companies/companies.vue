@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../../../dist/static/css/app.4ed954af64dc2b4856eca0f3f74babf6.css">
 <template>
   <el-main>
     <div class="main-search">

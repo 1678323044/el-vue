@@ -3,7 +3,7 @@
     <h1>智能轮胎管理系统</h1>
     <ul class="quit" @click="showMenu">
       <li>
-        <a href="javascript:"><i class="el-icon-caret-bottom">{{userInfo.username}}</i></a>
+        <a href="javascript:"><i class="el-icon-caret-bottom">&nbsp;{{userInfo.username}}</i></a>
         <ul v-if="status">
           <li><router-link to="javascript:">个人中心</router-link></li>
           <li><router-link to="/login">退出登录</router-link></li>

@@ -5,13 +5,13 @@
         <el-form-item label="公司名称" prop="name">
           <el-input v-model="ruleForm.name"></el-input>
         </el-form-item>
-        <el-form-item label="管理人" prop="name">
+        <el-form-item label="管理人">
           <el-input v-model="ruleForm.manager"></el-input>
         </el-form-item>
-        <el-form-item label="联系电话" prop="phone">
+        <el-form-item label="联系电话">
           <el-input v-model="ruleForm.phone"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱" prop="email">
+        <el-form-item label="邮箱">
           <el-input v-model="ruleForm.email"></el-input>
         </el-form-item>
         <el-form-item>
@@ -36,21 +36,16 @@
         rules: {
           name: [
             { required: true, message: '请输入公司名称', trigger: 'blur' }
-          ],
-          manager: [
-            { required: true, message: '请输入管理人姓名', trigger: 'blur' }
-          ],
-          phone: [
-            { required: true, message: '请输入手机号', trigger: 'blur' }
-          ],
-          email: [
-            { required: true, message: '请输入邮箱', trigger: 'blur' }
           ]
         }
       }
     },
     methods: {
       async addCompany(){
+        if (!this.ruleForm.name){
+          alert("请输入公司名称")
+          return
+        }
         const data = {name: this.ruleForm.name,manager: this.ruleForm.manager,
           phone: this.ruleForm.phone,email: this.ruleForm.email}
         const result = await reqAddCompany(data)
@@ -71,7 +66,7 @@
 <style>
   .main-form{
     width: 100%;
-    height: 800px;
+    min-height: 847px;
     background-color: #ffffff;
     overflow: hidden;
   }

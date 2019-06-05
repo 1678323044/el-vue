@@ -39,6 +39,13 @@
         checked: true
       }
     },
+    created(){
+      const account = JSON.parse(localStorage.getItem('account'))
+      if (account){
+        this.username = account.user
+        this.password = account.pass
+      }
+    },
     methods: {
       async handleLogin(){
         //表单验证
@@ -56,10 +63,10 @@
         }else{
           //如果勾选'记住密码',将用户名和密码保存到localStorage
           if (this.checked){
-
+            localStorage.setItem('account',JSON.stringify(userInfo))
+          }else {
+            localStorage.removeItem('account')
           }
-
-          //将用户名和访问令牌保存到全局变量
 
           this.$store.dispatch('recordLogin',result)
           this.$router.replace('/companies')
