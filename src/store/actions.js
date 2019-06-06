@@ -3,11 +3,13 @@
 import {
   RECEIVE_LOGIN,
   RECEIVE_RAWDATA,
-  RECEIVE_COMPANIES
+  RECEIVE_COMPANIES,
+  RECEIVE_ANALYSIS
 } from './mutations-types'
 import {
   reqRawdata,
-  reqCompanies
+  reqCompanies,
+  reqAnalysis
 } from  '../api/index'
 
 export default {
@@ -35,6 +37,12 @@ export default {
     if (result.errcode === 0) {
       commit(RECEIVE_COMPANIES,{result})
     }
+  },
+
+  //异步获取原始的解析数据
+  async getAnalysis({commit},data){
+    let result = await reqAnalysis(data)
+    commit(RECEIVE_ANALYSIS,{result})
   }
 }
 

@@ -18,6 +18,7 @@
           <el-input
             v-model="password"
             placeholder="请输入密码"
+            show-password
             prefix-icon="el-icon-unlock"
             @keyup.enter.native="handleLogin">
           </el-input>
@@ -76,7 +77,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .login-page{
     position: relative;
     width: 100%;

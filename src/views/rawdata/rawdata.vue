@@ -19,7 +19,7 @@
         <el-table-column
           prop="imei"
           label="设备号"
-          width="160">
+          width="150">
         </el-table-column>
         <el-table-column
           prop="dt"
@@ -29,7 +29,7 @@
         <el-table-column
           prop="t"
           label="时间"
-          width="140">
+          width="170">
         </el-table-column>
         <el-table-column
           prop="rawdata"
@@ -40,20 +40,33 @@
           label="数据状态"
           width="100">
         </el-table-column>
+        <el-table-column
+          label="操作"
+          width="110">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleAnalysis(scope.row)">解析</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <el-pagination
         background
         layout="prev, pager, next"
         @current-change="handlePaging"
         :current-page="currentPage"
-        :total="totalCount">
+        :total="Count">
       </el-pagination>
     </div>
+    <analysis-page v-show="toggle"></analysis-page>
   </el-main>
 </template>
 
 <script>
   import '../../common/css/comm.css'
+  import analysisPage from '../../components/analysisPage/analysisPage'
+  import PubSub from 'pubsub-js'
   export default {
     data() {
       return {
@@ -79,16 +92,26 @@
             label: '0900'
           }
         ],
+        toggle: false
       }
+    },
+    components: {
+      analysisPage
     },
     computed: {
       showRawdata(){
         return this.$store.state.rawdataInfo.rawdatas
+      },
+      Count(){
+        return this.$store.state.rawdataInfo.count
       }
     },
     created(){
       let data = {pageIndex: this.currentPage}
       this.showData(data)
+      PubSub.subscribe('cancel', msg => {
+        this.toggle = false
+      })
     },
     methods: {
       showData(data){
@@ -96,17 +119,19 @@
       },
       handlePaging(val){
         this.currentPage = val
-        let pageIndex = {pageIndex: this.currentPage}
+        let pageIndex = {pageIndex: this.currentPage,imei: this.imei,dt: this.value}
         this.showData(pageIndex)
       },
       handleQuery(){
         let query = {imei: this.imei,dt: this.value}
         this.showData(query)
+      },
+      handleAnalysis(val){
+        const data = {text: val.rawdata}
+        this.toggle = true
+        this.$store.dispatch('getAnalysis',data)
       }
     }
   }
 </script>
-
-<style>
-</style>
 

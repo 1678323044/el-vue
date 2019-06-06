@@ -1,7 +1,6 @@
 /* 公共css样式 */
 .el-main{
-  padding: 10px;
-  overflow: hidden;
+  padding: 10px 10px 70px 10px;
 }
 
 .main-search{
@@ -28,7 +27,4 @@
 }
 .main-table .el-table{
   margin: 0 0 40px 0;
-}
-.el-table td{
-  padding: 8px 0;
 }

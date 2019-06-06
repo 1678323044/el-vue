@@ -23,8 +23,9 @@
             <span>设备管理</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="2-1" @click="goto('/receivers')">设备入库</el-menu-item>
-            <el-menu-item index="2-2" @click="goto('/rawdata')">设备日志</el-menu-item>
+            <el-menu-item index="2-1" @click="goto('/receivers')">设备列表</el-menu-item>
+            <el-menu-item index="2-2" @click="goto('/addReceivers')">设备入库</el-menu-item>
+            <el-menu-item index="2-3" @click="goto('/rawdata')">设备日志</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>
@@ -43,6 +44,9 @@
 </script>
 
 <style scoped>
+  .el-aside{
+    width: 260px!important;
+  }
   .el-col,.el-col ul{
     height: 100%;
   }
@@ -50,7 +54,7 @@
     background-color: #cccccc!important;
   }
   .el-submenu__title span{
-    font-size: 16px;
+    font-size: 14px;
   }
   .el-submenu__title i{
     color: #ffffff;
@@ -58,5 +62,8 @@
   }
   .el-icon-mobile{
     margin-right: 0;
+  }
+  .el-submenu .el-menu-item{
+    font-size: 13px;
   }
 </style>
