@@ -2,8 +2,11 @@
   <div>
     <div class="bg"></div>
     <div class="popup">
+      <div class="popup-top">
+        <p>解析数据</p>
+        <span @click="leave"><i class="el-icon-close"></i></span>
+      </div>
       <textarea>{{analysisInfo}}</textarea>
-      <el-button type="primary" @click="leave">取消</el-button>
     </div>
   </div>
 </template>
@@ -43,12 +46,30 @@
     top: 20%;
     margin: 0 0 0 -400px;
     z-index: 99999;
-    padding: 10px;
     box-sizing: border-box;
   }
   .popup textarea{
     width: 100%;
     height: 90%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .popup .popup-top{
+    line-height: 55px;
+    background-color: #324157;
+    color: #ffffff;
+    overflow: hidden;
+  }
+  .popup .popup-top p{
+    float: left;
+    text-indent: 50px;
+  }
+  .popup .popup-top span{
+    float: right;
+    text-align: center;
+    font-size: 26px;
+    padding: 0 20px 0;
+    cursor: pointer;
   }
 </style>
 
