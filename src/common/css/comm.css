@@ -1,6 +1,7 @@
 /* 公共css样式 */
 .el-main{
   padding: 10px 10px 70px 10px;
+  overflow: hidden;
 }
 
 .main-search{
@@ -19,7 +20,8 @@
 
 .main-table{
   width: 100%;
-  min-height: 767px;
+  height: 100%;
+  min-width: 1130px;
   margin: 10px 0;
   padding: 20px;
   box-sizing: border-box;

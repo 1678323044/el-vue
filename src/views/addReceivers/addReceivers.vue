@@ -1,7 +1,10 @@
 <template>
   <el-main>
     <div class="main-form">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <div class="form-title">
+        设备入库
+      </div>
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
         <el-form-item label="设备类别" prop="type">
           <el-select v-model="value" placeholder="请选择">
             <el-option
@@ -12,26 +15,26 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="项目编号">
-          <el-input v-model="ruleForm.manager"></el-input>
+        <el-form-item label="项目编号" prop="project">
+          <el-input v-model.number="ruleForm.project"></el-input>
         </el-form-item>
-        <el-form-item label="制造商编码">
-          <el-input v-model="ruleForm.phone"></el-input>
+        <el-form-item label="制造商编码" prop="manufacturer">
+          <el-input v-model.number="ruleForm.manufacturer"></el-input>
         </el-form-item>
-        <el-form-item label="年份的最后一位">
-          <el-input v-model="ruleForm.email"></el-input>
+        <el-form-item label="年份的最后一位" prop="year">
+          <el-input v-model.number="ruleForm.year"></el-input>
         </el-form-item>
-        <el-form-item label="周数">
-          <el-input v-model="ruleForm.email"></el-input>
+        <el-form-item label="周数" prop="week">
+          <el-input v-model.number="ruleForm.week"></el-input>
         </el-form-item>
-        <el-form-item label="起始编号">
-          <el-input v-model="ruleForm.email"></el-input>
+        <el-form-item label="起始编号" prop="startnumber">
+          <el-input v-model.number="ruleForm.startnumber"></el-input>
         </el-form-item>
-        <el-form-item label="截止编号">
-          <el-input v-model="ruleForm.email"></el-input>
+        <el-form-item label="截止编号" prop="endnumber">
+          <el-input v-model.number="ruleForm.endnumber"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="addCompany">立即添加</el-button>
+          <el-button type="primary" @click="submitForm('ruleForm')">立即添加</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -39,41 +42,84 @@
 </template>
 
 <script>
-  import {reqAddCompany} from '../../api/index'
   export default {
     data(){
+      let checkOne = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('年龄不能为空'));
+        }
+        if (!Number.isInteger(value) || value.toString().length !== 1) {
+          callback(new Error('请输入1位的数字'));
+          return
+        }
+        callback();
+      };
+      let checkTwo = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('年龄不能为空'));
+        }
+        if (!Number.isInteger(value) || value.toString().length !== 2) {
+          callback(new Error('请输入2位的数字'));
+          return
+        }
+        callback();
+      };
+      let checkRange = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('编号不能为空'));
+        }
+        if (!Number.isInteger(value) || value <= 0 || value >= 9999) {
+          callback(new Error('请输入0-9999范围的数字'));
+          return
+        }
+        callback()
+      };
       return{
         ruleForm: {
-          name: '',
-          manager: '',
-          phone: '',
-          email: ''
+          project: '',
+          manufacturer: '',
+          year: '',
+          week: '',
+          startnumber: '',
+          endnumber: ''
         },
         rules: {
-          name: [
-            { required: true, message: '请输入公司名称', trigger: 'blur' }
-          ]
-        }
+          project: [ { validator: checkTwo, trigger: 'blur' } ],
+          manufacturer: [ { validator: checkOne, trigger: 'blur' } ],
+          year: [ { validator: checkOne, trigger: 'blur' } ],
+          week: [ { validator: checkTwo, trigger: 'blur' } ],
+          startnumber: [ { validator: checkRange, trigger: 'blur' } ],
+          endnumber: [ { validator: checkRange, trigger: 'blur' } ]
+        },
+        options: [{
+          value: '选项1',
+          label: '小车'
+        }, {
+          value: '选项2',
+          label: '大车'
+        }, {
+          value: '选项3',
+          label: '挂车'
+        }, {
+          value: '选项4',
+          label: '车头'
+        },{
+          value: '选项5',
+          label: '整车'
+        }],
+        value: ''
       }
     },
     methods: {
-      async addCompany(){
-        if (!this.ruleForm.name){
-          alert("请输入公司名称")
-          return
-        }
-        const data = {name: this.ruleForm.name,manager: this.ruleForm.manager,
-          phone: this.ruleForm.phone,email: this.ruleForm.email}
-        const result = await reqAddCompany(data)
-        if (result.errcode === 0){
-          this.ruleForm.name = ''
-          this.ruleForm.manager = ''
-          this.ruleForm.phone = ''
-          this.ruleForm.email = ''
-          alert("添加成功")
-        } else {
-          alert("添加失败")
-        }
+      submitForm(formName){
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        })
       }
     }
   }
@@ -82,15 +128,32 @@
 <style scoped>
   .main-form{
     width: 100%;
-    min-height: 847px;
+    height: 100%;
     background-color: #ffffff;
     overflow: hidden;
   }
-  .el-form{
-    width: 600px;
-    margin: 120px auto 0;
+  .form-title{
+    line-height: 90px;
+    font-size: 18px;
+    text-indent: 40px;
   }
-  .el-form .el-form-item{
-    margin: 0 0 40px 0;
+  .el-form{
+    width: 60%;
+    margin: 60px auto 0;
+  }
+  .el-form-item{
+    margin: 0 0 50px 0;
+  }
+  .el-form-item >>> .el-form-item__content{
+    margin-left: 180px!important;
+  }
+  .el-input >>> input{
+    height: 45px;
+  }
+  .el-select >>> .el-input input{
+    height: 45px;
+  }
+  .el-select >>> .el-input{
+    width: 340px;
   }
 </style>

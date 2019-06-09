@@ -1,6 +1,9 @@
 <template>
   <el-main>
     <div class="main-form">
+      <div class="form-title">
+        设备入库
+      </div>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="公司名称" prop="name">
           <el-input v-model="ruleForm.name"></el-input>
@@ -66,16 +69,30 @@
 <style scoped>
   .main-form{
     width: 100%;
-    min-height: 847px;
+    height: 100%;
     background-color: #ffffff;
     overflow: hidden;
   }
-  .el-form{
-    width: 600px;
-    margin: 120px auto 0;
+  .form-title{
+    line-height: 90px;
+    font-size: 18px;
+    text-indent: 40px;
   }
-  .el-form .el-form-item{
-    margin: 0 0 40px 0;
+  .el-form{
+    width: 60%;
+    margin: 60px auto 0;
+  }
+  .el-form-item{
+    margin: 0 0 50px 0;
+  }
+  .el-form-item >>> .el-form-item__label{
+    width: 130px!important;
+  }
+  .el-form-item >>> .el-form-item__content{
+    margin-left: 180px!important;
+  }
+  .el-input >>> input{
+    height: 45px;
   }
 </style>
 

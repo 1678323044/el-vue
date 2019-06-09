@@ -6,18 +6,18 @@
         <p>编辑公司</p>
         <span @click="leave"><i class="el-icon-close"></i></span>
       </div>
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <el-form :model="currCompany" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="公司名称" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
+          <el-input v-model="currCompany.name"></el-input>
         </el-form-item>
         <el-form-item label="管理人">
-          <el-input v-model="ruleForm.manager"></el-input>
+          <el-input v-model="currCompany.manager"></el-input>
         </el-form-item>
         <el-form-item label="联系电话">
-          <el-input v-model="ruleForm.phone"></el-input>
+          <el-input v-model="currCompany.phone"></el-input>
         </el-form-item>
         <el-form-item label="邮箱">
-          <el-input v-model="ruleForm.email"></el-input>
+          <el-input v-model="currCompany.email"></el-input>
         </el-form-item>
       </el-form>
       <el-row>
@@ -37,7 +37,6 @@
     },
     data(){
       return{
-        ruleForm: this.currCompany,
         rules: {
           name: [
             { required: true, message: '请输入公司名称', trigger: 'blur' }
