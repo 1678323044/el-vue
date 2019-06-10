@@ -6,19 +6,20 @@
       </div>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="公司名称" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
+          <el-input v-model="ruleForm.name" placeholder="请填写公司名称"></el-input>
         </el-form-item>
         <el-form-item label="管理人">
-          <el-input v-model="ruleForm.manager"></el-input>
+          <el-input v-model="ruleForm.manager" placeholder="请填写管理人姓名"></el-input>
         </el-form-item>
         <el-form-item label="联系电话">
-          <el-input v-model="ruleForm.phone"></el-input>
+          <el-input v-model="ruleForm.phone" placeholder="请填写联系电话"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱">
+        <el-form-item label="邮箱" placeholder="请填写邮箱地址">
           <el-input v-model="ruleForm.email"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="addCompany">立即添加</el-button>
+          <el-button @click="resetForm('ruleForm')">重新输入</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -61,30 +62,15 @@
         } else {
           alert("添加失败")
         }
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
       }
     }
   }
 </script>
 
 <style scoped>
-  .main-form{
-    width: 100%;
-    height: 100%;
-    background-color: #ffffff;
-    overflow: hidden;
-  }
-  .form-title{
-    line-height: 90px;
-    font-size: 18px;
-    text-indent: 40px;
-  }
-  .el-form{
-    width: 60%;
-    margin: 60px auto 0;
-  }
-  .el-form-item{
-    margin: 0 0 50px 0;
-  }
   .el-form-item >>> .el-form-item__label{
     width: 130px!important;
   }
@@ -93,6 +79,10 @@
   }
   .el-input >>> input{
     height: 45px;
+    border: solid 1px #c2cede;
+  }
+  .el-button+.el-button{
+    margin-left: 40px;
   }
 </style>
 

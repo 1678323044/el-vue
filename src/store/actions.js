@@ -4,12 +4,14 @@ import {
   RECEIVE_LOGIN,
   RECEIVE_RAWDATA,
   RECEIVE_COMPANIES,
-  RECEIVE_ANALYSIS
+  RECEIVE_ANALYSIS,
+  RECEIVE_CREATE_RECEIVERS
 } from './mutations-types'
 import {
   reqRawdata,
   reqCompanies,
-  reqAnalysis
+  reqAnalysis,
+  reqCreateReceivers
 } from  '../api/index'
 
 export default {
@@ -43,6 +45,11 @@ export default {
   async getAnalysis({commit},data){
     let result = await reqAnalysis(data)
     commit(RECEIVE_ANALYSIS,{result})
+  },
+
+  //同步获取批量创建接收器数据
+  getCreateReceivers({commit},result){
+    commit(RECEIVE_CREATE_RECEIVERS,{result})
   }
 }
 
