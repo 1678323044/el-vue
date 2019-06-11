@@ -1,6 +1,6 @@
 /* 公共css样式 */
 .el-main{
-  padding: 10px 10px 0 10px;
+  padding: 10px 10px 70px;
 }
 
 .main-search{
@@ -40,10 +40,4 @@
   font-size: 18px;
   text-indent: 40px;
 }
-.el-form{
-  width: 60%;
-  margin: 50px auto 0;
-}
-.el-form-item{
-  margin: 0 0 40px 0;
-}
+

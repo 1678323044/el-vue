@@ -14,7 +14,7 @@
     </div>
     <div class="main-table">
       <el-table
-        :data="showRawdata"
+        :data="rawdata"
         style="width: 100%">
         <el-table-column
           prop="imei"
@@ -53,10 +53,10 @@
       </el-table>
       <el-pagination
         background
-        layout="prev, pager, next"
+        layout="prev, pager, next, jumper"
         @current-change="handlePaging"
         :current-page="currentPage"
-        :total="Count">
+        :total="count">
       </el-pagination>
     </div>
     <analysis-page v-show="toggle"></analysis-page>
@@ -70,12 +70,7 @@
   export default {
     data() {
       return {
-        //当前页
         currentPage: 1,
-        //总数据
-        tableData: [],
-        //总记录数
-        totalCount: 0,
         value: '',
         imei: '',
         options: [
@@ -99,10 +94,10 @@
       analysisPage
     },
     computed: {
-      showRawdata(){
+      rawdata(){
         return this.$store.state.rawdataInfo.rawdatas
       },
-      Count(){
+      count(){
         return this.$store.state.rawdataInfo.count
       }
     },

@@ -6,7 +6,7 @@
       </div>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="公司名称" prop="name">
-          <el-input v-model="ruleForm.name" placeholder="请填写公司名称"></el-input>
+          <el-input v-model.trim="ruleForm.name" placeholder="请填写公司名称"></el-input>
         </el-form-item>
         <el-form-item label="管理人">
           <el-input v-model="ruleForm.manager" placeholder="请填写管理人姓名"></el-input>
@@ -83,6 +83,16 @@
   }
   .el-button+.el-button{
     margin-left: 40px;
+  }
+  .el-form{
+    width: 60%;
+    margin: 50px auto 0;
+  }
+  .el-form-item{
+    margin: 0 0 40px 0;
+  }
+  .el-input{
+    width: 85%;
   }
 </style>
 

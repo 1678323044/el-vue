@@ -8,7 +8,7 @@
       </div>
       <el-form :model="currCompany" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="公司名称" prop="name">
-          <el-input v-model="currCompany.name"></el-input>
+          <el-input v-model.trim="currCompany.name"></el-input>
         </el-form-item>
         <el-form-item label="管理人">
           <el-input v-model="currCompany.manager"></el-input>

@@ -198,4 +198,11 @@
     padding: 0 0 0 10px;
     color: lightcoral;
   }
+  .el-form{
+    width: 60%;
+    margin: 50px auto 0;
+  }
+  .el-form-item{
+    margin: 0 0 40px 0;
+  }
 </style>

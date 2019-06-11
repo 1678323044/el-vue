@@ -32,3 +32,6 @@ export const reqEditCompany = (data) => ajax(`${SMART_URL}/api/company/modify`,d
 
 //批量创建接收器模块
 export const reqCreateReceivers = (data) => ajax(`${SMART_URL}/api/receiver/batchcreate`,data)
+
+//接收器列表模块
+export const reqReceivers = (data) => ajax(`${SMART_URL}/api/receiver/list`,data)

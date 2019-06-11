@@ -8,3 +8,5 @@ export const RECEIVE_COMPANIES = 'receive_companies'  //接收公司列表
 export const RECEIVE_ANALYSIS = 'receive_analysis' //接收原始解析数据
 
 export const RECEIVE_CREATE_RECEIVERS = 'receive_create_receivers'  //接收批量创建接收器返回数据
+
+export const RECEIVE_RECEIVES = 'receive_receives'  //接收器列表

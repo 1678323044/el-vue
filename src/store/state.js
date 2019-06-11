@@ -4,7 +4,8 @@ export default {
   rawdataInfo: {},      //原始数据
   companiesInfo: {},    //公司信息
   analysisInfo: '',     //原始的解析数据
-  createReceivers: {}   //批量创建接收器返回数据
+  createReceivers: {},  //批量创建接收器返回数据
+  receiversInfo: {}     //接收器列表信息
 }
 
 

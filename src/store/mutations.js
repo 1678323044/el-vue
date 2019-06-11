@@ -4,7 +4,8 @@ import {
   RECEIVE_RAWDATA,
   RECEIVE_COMPANIES,
   RECEIVE_ANALYSIS,
-  RECEIVE_CREATE_RECEIVERS
+  RECEIVE_CREATE_RECEIVERS,
+  RECEIVE_RECEIVES
 } from './mutations-types'
 
 export default {
@@ -27,5 +28,9 @@ export default {
   //更新批量创建接收器的返回数据
   [RECEIVE_CREATE_RECEIVERS](state,{result}){
     state.createReceivers = result
+  },
+  //更新接收器列表数据
+  [RECEIVE_RECEIVES](state,{result}){
+    state.receiversInfo = result
   }
 }

@@ -5,13 +5,14 @@ import {
   RECEIVE_RAWDATA,
   RECEIVE_COMPANIES,
   RECEIVE_ANALYSIS,
-  RECEIVE_CREATE_RECEIVERS
+  RECEIVE_CREATE_RECEIVERS,
+  RECEIVE_RECEIVES
 } from './mutations-types'
 import {
   reqRawdata,
   reqCompanies,
   reqAnalysis,
-  reqCreateReceivers
+  reqReceivers
 } from  '../api/index'
 
 export default {
@@ -50,6 +51,14 @@ export default {
   //同步获取批量创建接收器数据
   getCreateReceivers({commit},result){
     commit(RECEIVE_CREATE_RECEIVERS,{result})
+  },
+
+  //异步获取接收器列表数据
+  async getReceivers({commit},data){
+    const result = await reqReceivers(data)
+    if (result.errcode === 0){
+      commit(RECEIVE_RECEIVES,{result})
+    }
   }
 }
 
