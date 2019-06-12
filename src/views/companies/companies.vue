@@ -6,7 +6,7 @@
     </div>
     <div class="main-table">
       <el-table
-        :data="showCompanies"
+        :data="companiesData.slice((currentPage-1)*pageSize,currentPage*pageSize )"
         style="width: 100%">
         <el-table-column
           prop="cid"
@@ -40,6 +40,13 @@
           </template>
         </el-table-column>
       </el-table>
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        @current-change="handlePaging "
+        :page-size="pageSize"
+        :total="count">
+      </el-pagination>
     </div>
     <edit-page v-show="toggle" v-bind:currCompany="currCompany"/>
   </el-main>
@@ -52,6 +59,8 @@
   export default {
     data(){
       return{
+        currentPage: 1,
+        pageSize: 10,
         currCompany: {},  //点击编辑,当前公司的数据
         toggle: false,
         tableData: [{
@@ -67,8 +76,11 @@
       this.$store.dispatch('getCompanies')
     },
     computed: {
-      showCompanies(){
+      companiesData(){
         return this.$store.state.companiesInfo.companies
+      },
+      count(){
+        return this.$store.state.companiesInfo.companies.length
       }
     },
     components: {
@@ -83,6 +95,9 @@
       handleEdit(row){
         this.toggle = true
         this.currCompany = row
+      },
+      handlePaging(pageIndex){
+        this.currentPage = pageIndex
       }
     }
   }

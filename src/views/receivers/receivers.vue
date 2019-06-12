@@ -11,41 +11,49 @@
         <el-table-column
           prop="rid"
           label="接收器id"
-          width="150">
+          width="170">
         </el-table-column>
         <el-table-column
-          prop="type"
           label="车辆类型"
-          width="100">
+          width="120">
+          <template slot-scope="scope">
+            <p>{{scope.row.type | vehicleType}}</p>
+          </template>
         </el-table-column>
         <el-table-column
           prop="plate"
           label="关联的车牌号"
-          width="150">
+          width="170">
         </el-table-column>
         <el-table-column
-          prop="status"
           label="状态"
-          width="100">
+          width="120">
+          <template slot-scope="scope">
+            <p>{{scope.row.status | alterStatus}}</p>
+          </template>
         </el-table-column>
         <el-table-column
           prop="authcode"
           label="鉴权码"
-          width="120">
+          width="170">
         </el-table-column>
         <el-table-column
-          prop="mileage"
-          label="总里程(公里)">
+          label="总里程(公里)"
+          width="150">
+          <template slot-scope="scope">
+            <p>{{scope.row.mileage | filterMileage}}</p>
+          </template>
         </el-table-column>
         <el-table-column
           prop="duration"
           label="总天数"
-          width="100">
+          width="120">
         </el-table-column>
         <el-table-column
-          prop="lt"
-          label="最后通讯时间"
-          width="140">
+          label="最后通讯时间">
+          <template slot-scope="scope">
+            <p>{{scope.row.lt | dateFormat}}</p>
+          </template>
         </el-table-column>
         <el-table-column
           label="操作"
@@ -80,7 +88,7 @@
       },
       count(){
         return this.$store.state.receiversInfo.total
-      },
+      }
     },
     mounted(){
       let data = {cid: this.cid,tid: this.tid}

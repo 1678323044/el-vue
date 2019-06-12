@@ -10,11 +10,13 @@
           :value="item.value">
         </el-option>
       </el-select>
-      <el-button type="primary" @click="handleQuery">查询</el-button>
+      <el-button type="primary" @click="handleQuery" :disabled="btnStatus">查询</el-button>
     </div>
     <div class="main-table">
       <el-table
-        :data="rawdata"
+        v-loading="loading"
+        element-loading-text="拼命加载中"
+        :data="rawDatas"
         style="width: 100%">
         <el-table-column
           prop="imei"
@@ -36,9 +38,11 @@
           label="数据">
         </el-table-column>
         <el-table-column
-          prop="stat"
           label="数据状态"
           width="100">
+          <template slot-scope="scope">
+            <p>{{scope.row.stat | filterStat}}</p>
+          </template>
         </el-table-column>
         <el-table-column
           label="操作"
@@ -87,14 +91,16 @@
             label: '0900'
           }
         ],
-        toggle: false
+        toggle: false,    //解析的弹窗
+        loading: false,   //加载的状态
+        btnStatus: false  //按钮的状态
       }
     },
     components: {
       analysisPage
     },
     computed: {
-      rawdata(){
+      rawDatas(){
         return this.$store.state.rawdataInfo.rawdatas
       },
       count(){
@@ -116,15 +122,28 @@
         this.currentPage = val
         let pageIndex = {pageIndex: this.currentPage,imei: this.imei,dt: this.value}
         this.showData(pageIndex)
+        this.loading = true
+        this.btnStatus = true
       },
       handleQuery(){
         let query = {imei: this.imei,dt: this.value}
         this.showData(query)
+        this.loading = true
+        this.btnStatus = true
       },
+      //处理原始数据的解析请求
       handleAnalysis(val){
         const data = {text: val.rawdata}
         this.toggle = true
         this.$store.dispatch('getAnalysis',data)
+      }
+    },
+    watch: {
+      rawDatas(){
+        this.$nextTick(() => {
+          this.loading = false
+          this.btnStatus = false
+        })
       }
     }
   }

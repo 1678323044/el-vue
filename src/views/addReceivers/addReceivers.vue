@@ -178,9 +178,6 @@
 </script>
 
 <style scoped>
-  .el-form-item >>> .el-form-item__content{
-    margin-left: 180px!important;
-  }
   .el-input >>> input,.el-select >>> .el-input input{
     height: 45px;
     border: solid 1px #c2cede;
@@ -192,17 +189,15 @@
     margin-left: 40px;
   }
   .el-input{
-    width: 65%;
+    width: 60%;
   }
   .el-form-item span{
     padding: 0 0 0 10px;
     color: lightcoral;
+    font-size: 13px;
   }
   .el-form{
-    width: 60%;
-    margin: 50px auto 0;
-  }
-  .el-form-item{
-    margin: 0 0 40px 0;
+    width: 65%;
+    margin: 45px auto 0;
   }
 </style>

@@ -14,8 +14,8 @@
         <el-form-item label="联系电话">
           <el-input v-model="ruleForm.phone" placeholder="请填写联系电话"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱" placeholder="请填写邮箱地址">
-          <el-input v-model="ruleForm.email"></el-input>
+        <el-form-item label="邮箱">
+          <el-input v-model="ruleForm.email" placeholder="请填写邮箱地址"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="addCompany">立即添加</el-button>
@@ -74,9 +74,6 @@
   .el-form-item >>> .el-form-item__label{
     width: 130px!important;
   }
-  .el-form-item >>> .el-form-item__content{
-    margin-left: 180px!important;
-  }
   .el-input >>> input{
     height: 45px;
     border: solid 1px #c2cede;
@@ -85,14 +82,8 @@
     margin-left: 40px;
   }
   .el-form{
-    width: 60%;
-    margin: 50px auto 0;
-  }
-  .el-form-item{
-    margin: 0 0 40px 0;
-  }
-  .el-input{
-    width: 85%;
+    width: 45%;
+    margin: 45px auto 0;
   }
 </style>
 

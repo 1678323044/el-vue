@@ -45,7 +45,7 @@
 
 <style scoped>
   .el-aside{
-    width: 260px!important;
+    width: 220px!important;
   }
   .el-col,.el-col ul{
     height: 100%;

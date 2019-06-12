@@ -10,8 +10,7 @@ Vue.use(ElementUI)
 import router from './router/index'
 import store from './store/index'
 import qs from 'qs'
-
-
+import './fiters'
 
 new Vue({
   el: '#app',
