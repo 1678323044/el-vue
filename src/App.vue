@@ -1,26 +1,22 @@
 <template>
   <div id="app">
-    <head-menu v-show="$route.meta.showComponent"></head-menu>
-    <el-container>
-      <side-menu v-show="$route.meta.showComponent"></side-menu>
-      <router-view></router-view>
-    </el-container>
+    <router-view></router-view>
+    <footer-menu v-show="$route.meta.showFooter"></footer-menu>
   </div>
 </template>
 
 <script>
-  import headMenu from './components/headMenu/headMenu'
-  import sideMenu from './components/sideMenu/sideMenu'
+  import footerMenu from './components/footerMenu/menu'
   export default {
+    mounted(){
+      this.$store.dispatch('getAddress')
+    },
     components: {
-      headMenu,
-      sideMenu
+      footerMenu
     }
   }
 </script>
 
 <style>
-  .el-container{
-    height: 100%;
-  }
+
 </style>

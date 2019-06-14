@@ -2,57 +2,49 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
 
+import home from '../views/home/home'
+import mine from '../views/mine/mine'
+import order from '../views/order/order'
+import search from '../views/search/search'
 import login from '../views/login/login'
-import rawdata from '../views/rawdata/rawdata'
-import receivers from '../views/receivers/receivers'
-import companies from '../views/companies/companies'
-import addCompany from '../views/addCompany/addCompany'
-import addReceivers from '../views/addReceivers/addReceivers'
 
 export default new Router({
   routes: [
+    {
+      path: '/home',
+      component: home,
+      meta: {
+        showFooter: true
+      }
+    },
+    {
+      path: '/mine',
+      component: mine,
+      meta: {
+        showFooter: true
+      }
+    },
+    {
+      path: '/order',
+      component: order,
+      meta: {
+        showFooter: true
+      }
+    },
+    {
+      path: '/search',
+      component: search,
+      meta: {
+        showFooter: true
+      }
+    },
     {
       path: '/login',
       component: login
     },
     {
-      path: '/rawdata',
-      component: rawdata,
-      meta: {
-        showComponent: true
-      }
-    },
-    {
-      path: '/receivers',
-      component: receivers,
-      meta: {
-        showComponent:true
-      }
-    },
-    {
-      path: '/addReceivers',
-      component: addReceivers,
-      meta: {
-        showComponent: true
-      }
-    },
-    {
-      path: '/companies',
-      component: companies,
-      meta: {
-        showComponent: true
-      }
-    },
-    {
-      path: '/addCompany',
-      component: addCompany,
-      meta: {
-        showComponent: true
-      }
-    },
-    {
       path: '/',
-      redirect: '/login'
+      redirect: '/home'
     }
   ]
 })
