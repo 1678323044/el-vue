@@ -20,7 +20,7 @@
         <router-link class="mui-navigate-right" to="/login">
           <img class="mui-media-object mui-pull-left head-img" id="head-img" src="./images/logo.png">
           <div class="mui-media-body">
-            登录/注册
+            {{user.username}}
             <p class="mui-ellipsis">暂未绑定手机号</p>
           </div>
         </router-link>
@@ -70,6 +70,15 @@
     </ul>
   </div>
 </template>
+
+<script>
+  import {mapState} from 'vuex'
+  export default {
+    computed: {
+      ...mapState(['user'])
+    }
+  }
+</script>
 
 <style scoped>
   .top-mine{

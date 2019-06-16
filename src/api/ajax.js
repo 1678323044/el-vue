@@ -1,4 +1,5 @@
 import axios from 'axios'
+import qs from 'qs'
 
 export default function ajax (url,data={},type='GET'){
   return new Promise(function (resolve,reject){
@@ -17,7 +18,7 @@ export default function ajax (url,data={},type='GET'){
       promise = axios.get(url)
     }else{
       //发送post请求
-      promise = axios.post(url,data)
+      promise = axios.post(url,qs.stringify(data))
     }
     promise.then(function(response){
       resolve(response.data)

@@ -1,106 +1,112 @@
 <template>
   <div class="login">
-    <header>
-      <span><a class="mui-action-back mui-icon mui-icon-closeempty mui-pull-left" v-on:click="$router.back()"></a></span>
-      <h1>ELM外卖</h1>
-    </header>
+    <header><i class="mui-icon mui-icon-closeempty"></i></header>
     <main>
-      <ul>
-        <li>密码登录</li>
-        <li>短信登录</li>
-      </ul>
-      <form class="mui-input-group">
-        <div class="mui-input-row">
-          <label><i class="mui-icon mui-icon-person"></i></label>
-          <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+      <div class="top">ELM外卖</div>
+      <div class="bottom">
+        <div class="tab">
+          <ul>
+            <li :class="{'active': select}" @click="select = true">密码登录</li>
+            <li :class="{'active': !select}" @click="select = false">短信登录</li>
+          </ul>
         </div>
-        <div class="mui-input-row">
-          <label><i class="mui-icon mui-icon-locked"></i></label>
-          <input type="password" class="mui-input-password" placeholder="请输入密码">
+        <div class="form">
+          <div>
+            <input type="text" v-model="username" placeholder="请输入用户名" class="mui-input-password" data-input-password="3">
+            <input type="password" v-model="password" placeholder="请输入密码" class="mui-input-password" data-input-password="3">
+          </div>
+          <p>温馨提示：未注册硅谷外卖账号的手机号，登录时将自动注册，且代表已经同意《用户服务协议》</p> <br>
+          <button type="button" @click="submitForm" class="mui-btn mui-btn-primary mui-btn-block">登录</button> <br>
+          <p class="about">关于我们</p>
         </div>
-        <div class="mui-button-row">
-          <button type="button" class="mui-btn mui-btn-primary" >登录</button>
-        </div>
-      </form>
+      </div>
     </main>
   </div>
 </template>
 
 <script>
   import '../../../static/css/reset.css'
+  import {reqLogin} from "../../api";
+
+  export default {
+    data(){
+      return{
+        select: true,
+        username: '',
+        password: ''
+      }
+    },
+    methods: {
+      async submitForm(){
+        //验证表单数据
+        if (!this.username || !this.password) {
+          alert("请输入用户名或密码")
+          return
+        }
+        //发送ajax请求
+        const data = {username: this.username,password: this.password}
+        const result = await reqLogin(data)
+        if (result.code === 0){
+          //将用户信息保存到vuex
+          const user = result.user
+          console.log(user)
+          this.$store.dispatch('recordUser',user)
+          //跳转到首页
+          this.$router.replace('/mine')
+        }else {
+          //显示错误信息
+          alert(result.msg)
+        }
+      }
+    }
+  }
 </script>
 
-<style scoped>
+<style>
   .login{
-    width: 100%;
     height: 100%;
+    background-color: #ffffff;
   }
-  header{
-    height: 250px;
+  .mui-icon-closeempty{
+    font-size: 48px;
+
+  }
+  main .top{
     text-align: center;
-    background-color: #39aabc;
+    font-size: 48px;
+    line-height: 200px;
+    color: #007aff;
   }
-  header span{
-    display: block;
-    height: 46px;
+  .form{
+    width: 90%;
+    margin: 0 auto;
   }
-  header .mui-icon{
-    font-size: 46px;
-    color: #ffffff;
-  }
-  header h1{
-    margin-top: 40px;
-    color: #ffffff;
-    font-weight: normal;
-    letter-spacing: 5px;
-  }
-  main{
-    width: 290px;
-    height: 265px;
-    background: #ffffff;
-    box-shadow: 0 0 5px #999999;
-    margin: -65px auto 0;
-    border-radius: 20px;
-  }
-  main ul{
+  .tab ul{
+    width: 50%;
+    margin: 0 auto 20px;
     overflow: hidden;
   }
-  main li{
+  .tab li{
     float: left;
-    line-height: 50px;
-    width: 50%;
+    margin: 0 17px;
+    line-height: 40px;
+  }
+  .mui-btn-block{
+    padding: 10px 0;
+  }
+  .about{
     text-align: center;
   }
-  main li:nth-child(1){
+  .active{
+    color: #007aff;
     position: relative;
   }
-  main li:nth-child(1):before{
+  .active:before{
     content: '';
-    background-color: #cccccc;
-    width: 1px;
-    height: 20px;
     position: absolute;
-    right: 0;
-    top: 10px;
-  }
-  main form{
-    padding: 30px 0 0 0;
-  }
-  .mui-button-row{
-    margin: 10px 0 0 0;
-  }
-  .mui-btn-primary{
-    width: 90%;
-    line-height: 26px;
-  }
-  .mui-input-row{
-    margin: 0 0 20px 0;
-  }
-  .mui-input-row label{
-    width: 20%;
-  }
-  .mui-input-row label~input{
-    width: 80%;
-    font-size: 15px;
+    width: 60px;
+    height: 1px;
+    background: #007aff;
+    bottom: 0px;
   }
 </style>

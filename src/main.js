@@ -11,11 +11,13 @@ import './lib/mui/css/mui.min.css'
 
 import router from './router/index'
 import store from './store/index'
+import qs from 'qs'
 
 new Vue({
   el: '#app',
   render: h => h(App),
   MintUI,
   router,
-  store
+  store,
+  qs
 })
