@@ -1,26 +1,15 @@
 <template>
   <div>
-    <header class="mint-header">
-      <div class="mint-header-button is-left">
-        <a href="#" class="router-link-active">
-          <button class="mint-button mint-button--default mint-button--normal">
-            <span class="mint-button-icon"><i class="mintui mintui-back"></i></span>
-          </button>
-        </a>
-      </div>
-      <h1 class="mint-header-title">我的</h1>
-      <div class="mint-header-button is-right">
-        <button class="mint-button mint-button--default mint-button--normal">
-          <span class="mint-button-icon"><i class="mintui mintui-more"></i></span>
-        </button>
-      </div>
-    </header>
+    <head-title title="我的">
+
+    </head-title>
+
     <ul class="mui-table-view mui-table-view-chevron top-mine">
       <li class="mui-table-view-cell mui-media">
         <router-link class="mui-navigate-right" to="/login">
           <img class="mui-media-object mui-pull-left head-img" id="head-img" src="./images/logo.png">
           <div class="mui-media-body">
-            {{user.username}}
+            {{user.username || '登录/注册'}}
             <p class="mui-ellipsis">暂未绑定手机号</p>
           </div>
         </router-link>
@@ -73,9 +62,24 @@
 
 <script>
   import {mapState} from 'vuex'
+  import util from '../../util'
+  import headTitle from '../../components/header/header'
   export default {
+    components: {
+      headTitle
+    },
     computed: {
       ...mapState(['user'])
+    },
+    created(){
+      const user = util.readStorage()
+      this.$store.dispatch('recordUser',user)
+    },
+    watch: {
+      user: {
+        deep: true,
+        handler: util.saveStorage
+      }
     }
   }
 </script>

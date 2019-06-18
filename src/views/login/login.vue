@@ -11,9 +11,16 @@
           </ul>
         </div>
         <div class="form">
-          <div>
+          <div :class="{'active': select}">
             <input type="text" v-model="username" placeholder="请输入用户名" class="mui-input-password" data-input-password="3">
-            <input type="password" v-model="password" placeholder="请输入密码" class="mui-input-password" data-input-password="3">
+            <span class="pwd">
+              <input type="password" class="mui-input-password" v-model="password" placeholder="请输入密码" data-input-password="3">
+              <mt-switch v-model="value"></mt-switch>
+            </span>
+          </div>
+          <div :class="{'active': !select}">
+            <input type="text" v-model="username" placeholder="请输入手机号" class="mui-input-password" data-input-password="3">
+            <input type="number" v-model="password" placeholder="请输入验证码" class="mui-input-password" data-input-password="3">
           </div>
           <p>温馨提示：未注册硅谷外卖账号的手机号，登录时将自动注册，且代表已经同意《用户服务协议》</p> <br>
           <button type="button" @click="submitForm" class="mui-btn mui-btn-primary mui-btn-block">登录</button> <br>
@@ -27,6 +34,7 @@
 <script>
   import '../../../static/css/reset.css'
   import {reqLogin} from "../../api";
+  import util from '../../util'
 
   export default {
     data(){
@@ -47,9 +55,10 @@
         const data = {username: this.username,password: this.password}
         const result = await reqLogin(data)
         if (result.code === 0){
-          //将用户信息保存到vuex
           const user = result.user
-          console.log(user)
+          //将用户信息保存到localStorage
+          util.saveStorage(user)
+          //将用户信息保存到vuex
           this.$store.dispatch('recordUser',user)
           //跳转到首页
           this.$router.replace('/mine')
@@ -69,7 +78,6 @@
   }
   .mui-icon-closeempty{
     font-size: 48px;
-
   }
   main .top{
     text-align: center;
@@ -80,6 +88,26 @@
   .form{
     width: 90%;
     margin: 0 auto;
+  }
+  .form > div{
+    display: none;
+  }
+  .form .active{
+    display: block;
+  }
+  .form .pwd{
+    position: relative;
+  }
+  .form .mint-switch{
+    position: absolute;
+    right: 10px;
+    top: -2px;
+  }
+  .mint-switch-core:before,.mint-switch-core:after{
+    height: 24px;
+  }
+  .mint-switch-core{
+    height: 26px;
   }
   .tab ul{
     width: 50%;
@@ -97,11 +125,11 @@
   .about{
     text-align: center;
   }
-  .active{
+  .tab li.active{
     color: #007aff;
     position: relative;
   }
-  .active:before{
+  .tab li.active:before{
     content: '';
     position: absolute;
     width: 60px;

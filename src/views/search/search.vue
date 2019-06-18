@@ -1,5 +1,12 @@
 <template>
-  <section>
-    <p>这是搜索页面</p>
-  </section>
+  <head-title title="搜索"></head-title>
 </template>
+
+<script>
+  import headTitle from '../../components/header/header'
+  export default {
+    components: {
+      headTitle
+    }
+  }
+</script>
