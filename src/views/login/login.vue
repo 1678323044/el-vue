@@ -14,8 +14,9 @@
           <div :class="{'active': select}">
             <input type="text" v-model="username" placeholder="请输入用户名" class="mui-input-password" data-input-password="3">
             <span class="pwd">
-              <input type="password" class="mui-input-password" v-model="password" placeholder="请输入密码" data-input-password="3">
-              <mt-switch v-model="value"></mt-switch>
+              <input type="text" class="mui-input-password" v-if="state" v-model="password" placeholder="请输入密码" data-input-password="3">
+              <input type="password" class="mui-input-password" v-else v-model="password" placeholder="请输入密码" data-input-password="3">
+              <mt-switch v-model="state"></mt-switch>
             </span>
           </div>
           <div :class="{'active': !select}">
@@ -28,6 +29,7 @@
         </div>
       </div>
     </main>
+    <popup v-bind:tipText="tipText" v-show="tipState" @closeTip="close"></popup>
   </div>
 </template>
 
@@ -35,20 +37,31 @@
   import '../../../static/css/reset.css'
   import {reqLogin} from "../../api";
   import util from '../../util'
+  import popup from '../../components/popup/popup'
 
   export default {
     data(){
       return{
         select: true,
         username: '',
-        password: ''
+        password: '',
+        state: false,
+        tipText: '',
+        tipState: false
       }
     },
+    components: {
+      popup
+    },
     methods: {
+      close(){
+        this.tipState = false
+      },
       async submitForm(){
         //验证表单数据
         if (!this.username || !this.password) {
-          alert("请输入用户名或密码")
+          this.tipState = true
+          this.tipText = "请输入用户名或密码"
           return
         }
         //发送ajax请求
