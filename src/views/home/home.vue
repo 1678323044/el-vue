@@ -51,6 +51,9 @@
   import headTitle from '../../components/header/header'
   import shopList from '../../components/shopList/shopList'
   export default {
+    created(){
+      this.$store.dispatch('getShops')
+    },
     computed: {
       ...mapState(['address'])
     },

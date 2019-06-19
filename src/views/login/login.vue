@@ -21,7 +21,12 @@
           </div>
           <div :class="{'active': !select}">
             <input type="text" v-model="username" placeholder="请输入手机号" class="mui-input-password" data-input-password="3">
-            <input type="number" v-model="password" placeholder="请输入验证码" class="mui-input-password" data-input-password="3">
+            <span class="check">
+              <input type="number" v-model="password" placeholder="请输入验证码" class="mui-input-password" data-input-password="3">
+              <button class="mint-button mint-button--primary mint-button--large is-plain">
+                <label class="mint-button-text">验证码</label>
+              </button>
+            </span>
           </div>
           <p>温馨提示：未注册硅谷外卖账号的手机号，登录时将自动注册，且代表已经同意《用户服务协议》</p> <br>
           <button type="button" @click="submitForm" class="mui-btn mui-btn-primary mui-btn-block">登录</button> <br>
@@ -29,7 +34,7 @@
         </div>
       </div>
     </main>
-    <popup v-bind:tipText="tipText" v-show="tipState" @closeTip="close"></popup>
+    <popup v-bind:tipText="tipText" v-show="tipState" @closeTip="closeTip"></popup>
   </div>
 </template>
 
@@ -54,14 +59,18 @@
       popup
     },
     methods: {
-      close(){
+      closeTip(){
         this.tipState = false
+        this.tipText = ''
+      },
+      alertText(text){
+        this.tipState = true
+        this.tipText = text
       },
       async submitForm(){
         //验证表单数据
         if (!this.username || !this.password) {
-          this.tipState = true
-          this.tipText = "请输入用户名或密码"
+          this.alertText("请输入用户名或密码")
           return
         }
         //发送ajax请求
@@ -71,13 +80,11 @@
           const user = result.user
           //将用户信息保存到localStorage
           util.saveStorage(user)
-          //将用户信息保存到vuex
+
           this.$store.dispatch('recordUser',user)
-          //跳转到首页
           this.$router.replace('/mine')
         }else {
-          //显示错误信息
-          alert(result.msg)
+          this.alertText(result.msg)
         }
       }
     }
@@ -108,7 +115,7 @@
   .form .active{
     display: block;
   }
-  .form .pwd{
+  .form .pwd,.form .check{
     position: relative;
   }
   .form .mint-switch{
@@ -121,6 +128,14 @@
   }
   .mint-switch-core{
     height: 26px;
+  }
+  .form .check .mint-button{
+    width: 18%;
+    height: 28px;
+    font-size: 14px;
+    position: absolute;
+    right: 14px;
+    top: -4px;
   }
   .tab ul{
     width: 50%;
