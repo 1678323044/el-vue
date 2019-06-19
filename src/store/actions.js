@@ -2,12 +2,14 @@
 import {
   RECEIVE_ADDRESS,
   RECEIVE_USER,
-  RECEIVE_SHOPS
+  RECEIVE_SHOPS,
+  RECEIVE_SEARCH_SHOPS
 } from './mutations-types'
 
 import {
   reqAddress,
-  reqShops
+  reqShops,
+  reqSearchShops
 } from '../api/index'
 
 export default {
@@ -30,6 +32,14 @@ export default {
     if (result.code === 0){
       let shops = result.data
       commit(RECEIVE_SHOPS,{shops})
+    }
+  },
+  //获取搜索商品列表
+  async getSearchShops({commit},val){
+    const result = reqSearchShops(val)
+    if (result.code === 0){
+      let seaShops = result.data
+      commit(RECEIVE_SEARCH_SHOPS,{seaShops})
     }
   }
 }

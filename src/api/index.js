@@ -14,3 +14,6 @@ export const reqLogin = (data) => ajax(`${API_URL}/login`,data,'POST')
 
 //接收商铺列表模块
 export const reqShops = () => ajax(`${API_URL}/shops`)
+
+//接收搜索商铺列表模块
+export const reqSearchShops = (val) => ajax(`${API_URL}/search`,val,'POST')

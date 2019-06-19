@@ -4,5 +4,6 @@ export default {
   longitude: 116.36867, //经度
   address: {},          //地址相关信息
   user: {},             //用户信息
-  shops: {}             //商铺列表
+  shops: {},            //商铺列表
+  searchShops: {}       //搜索商铺列表
 }
