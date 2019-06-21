@@ -3,13 +3,15 @@ import {
   RECEIVE_ADDRESS,
   RECEIVE_USER,
   RECEIVE_SHOPS,
-  RECEIVE_SEARCH_SHOPS
+  RECEIVE_SEARCH_SHOPS,
+  RECEIVE_CATEGORYS
 } from './mutations-types'
 
 import {
   reqAddress,
   reqShops,
-  reqSearchShops
+  reqSearchShops,
+  reqCategory
 } from '../api/index'
 
 export default {
@@ -26,7 +28,7 @@ export default {
   recordUser({commit},user){
     commit(RECEIVE_USER,{user})
   },
-  //获取商品列表
+  //获取商铺列表
   async getShops({commit}){
     let result = await reqShops()
     if (result.code === 0){
@@ -34,12 +36,20 @@ export default {
       commit(RECEIVE_SHOPS,{shops})
     }
   },
-  //获取搜索商品列表
+  //获取搜索商铺列表
   async getSearchShops({commit},val){
-    const result = reqSearchShops(val)
+    const result = await reqSearchShops(val)
     if (result.code === 0){
       let seaShops = result.data
       commit(RECEIVE_SEARCH_SHOPS,{seaShops})
+    }
+  },
+  //获取商品类别
+  async getCategory({commit}){
+    const result = await reqCategory()
+    if (result.code === 0){
+      let categoryGoods = result.data
+      commit(RECEIVE_CATEGORYS,{categoryGoods})
     }
   }
 }

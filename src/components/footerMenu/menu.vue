@@ -41,4 +41,7 @@
   .mint-tabbar{
     box-shadow: 6px 0px 3px #aaaaaa;
   }
+  .mint-tabbar{
+    position: fixed;
+  }
 </style>

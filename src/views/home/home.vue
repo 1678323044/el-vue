@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section class="home">
     <head-title :title="address.title">
       <div class="mint-header-button is-left" slot="left">
         <a href="#/" class="router-link-active">
@@ -16,40 +16,16 @@
         </button>
       </div>
     </head-title>
-    <ul class="mui-table-view mui-grid-view mui-grid-9">
-      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-        <span class="mui-icon mui-icon-home"></span>
-        <div class="mui-media-body">Home</div></a></li>
-      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-        <span class="mui-icon mui-icon-email"><span class="mui-badge">5</span></span>
-        <div class="mui-media-body">Email</div></a></li>
-      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-        <span class="mui-icon mui-icon-chatbubble"></span>
-        <div class="mui-media-body">Chat</div></a></li>
-      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-        <span class="mui-icon mui-icon-location"></span>
-        <div class="mui-media-body">location</div></a></li>
-      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-        <span class="mui-icon mui-icon-search"></span>
-        <div class="mui-media-body">Search</div></a></li>
-      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-        <span class="mui-icon mui-icon-phone"></span>
-        <div class="mui-media-body">Phone</div></a></li>
-      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-        <span class="mui-icon mui-icon-gear"></span>
-        <div class="mui-media-body">Setting</div></a></li>
-      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
-        <span class="mui-icon mui-icon-more"></span>
-        <div class="mui-media-body">more</div></a></li>
-    </ul>
+    <neck-nav></neck-nav>
     <shop-list></shop-list>
-  </div>
+  </section>
 </template>
 
 <script>
   import {mapState} from 'vuex'
   import headTitle from '../../components/header/header'
   import shopList from '../../components/shopList/shopList'
+  import neckNav from '../../components/neckNav/neckNav'
   export default {
     created(){
       this.$store.dispatch('getShops')
@@ -59,12 +35,16 @@
     },
     components: {
       headTitle,
-      shopList
+      shopList,
+      neckNav
     }
   }
 </script>
 
 <style>
+  .home{
+    padding-bottom: 48px;
+  }
   .mui-grid-view.mui-grid-9 .mui-table-view-cell{
     padding-top: 0;
     padding-bottom: 0;

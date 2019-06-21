@@ -3,7 +3,8 @@ import {
   RECEIVE_ADDRESS,
   RECEIVE_USER,
   RECEIVE_SHOPS,
-  RECEIVE_SEARCH_SHOPS
+  RECEIVE_SEARCH_SHOPS,
+  RECEIVE_CATEGORYS
 } from './mutations-types'
 
 export default {
@@ -18,5 +19,8 @@ export default {
   },
   [RECEIVE_SEARCH_SHOPS](state,{seaShops}){
     state.searchShops = seaShops
+  },
+  [RECEIVE_CATEGORYS](state,{categoryGoods}){
+    state.category = categoryGoods
   }
 }

@@ -17,3 +17,6 @@ export const reqShops = () => ajax(`${API_URL}/shops`)
 
 //接收搜索商铺列表模块
 export const reqSearchShops = (val) => ajax(`${API_URL}/search`,val,'POST')
+
+//接收商品分类模块
+export const reqCategory = () => ajax(`${API_URL}/category`)
